@@ -20,7 +20,21 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "GDataXMLDocumentDepPackage",
-            dependencies: []),
+            dependencies: ["GDataXMLNode"],
+            path: "Sources",
+            sources: ["GDataXMLDocumentDepPackage.swift"]
+        ),
+        .target(
+            name: "GDataXMLNode",
+            dependencies: [],
+            path: "Sources",
+            sources: ["GDataXMLNode.m"],
+            publicHeadersPath: "include",
+            cSettings: [
+                .headerSearchPath("include"),
+                .unsafeFlags(["-fno-objc-arc"]) // Use this flag to compile without ARC
+            ]
+        ),
         .testTarget(
             name: "GDataXMLDocumentDepPackageTests",
             dependencies: ["GDataXMLDocumentDepPackage"]),
